@@ -5,9 +5,6 @@ from pprint import pprint
 from hashlib import md5
 from hashlib import sha256
 
-
-
-grades_db ={}
 class Student:
     studentId =0
     studentIdMap ={}
@@ -549,14 +546,15 @@ class Admin :
                 print('Incorrect Input')  
                 return returnnone 
 
-    def getmarkslist(courseId) :
+    def getmarkslist(self,courseId) :
         markslist =[]
         if fileExists('Student.csv'):
             with open('Student.csv','r') as file2:
                 reader = csv.reader(file2)
                 for idx, row in enumerate(reader):
-                    if row[3] == courseId:
-                        markslist.append(float(row[5]))
+                    if len(row) > 5 and row[3] == courseId:
+                        if row[5] and row[5].replace('.', '', 1).isdigit():
+                            markslist.append(float(row[5]))
 
                 print('Below is the markslist :::')
                 print(markslist)
@@ -816,4 +814,6 @@ def getId():
     
 if __name__ == "__main__":
     mainmethod()
+
+
 
